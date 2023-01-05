@@ -1,0 +1,18 @@
+use('platzi_store')
+
+db.products.insertOne(
+  {
+    name:'Product 1',
+    price:1000
+    }
+  )
+db.products.insertOne(
+  {
+    _id:1, //Asign ID
+    name:'Product 2',
+    price:100
+    }
+  )
+
+db.products.find()
+

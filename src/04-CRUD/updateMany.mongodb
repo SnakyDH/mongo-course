@@ -1,0 +1,26 @@
+use('sample_training')
+
+
+db.zips.updateMany(
+  {city:"CLEVELAND"},
+  //UPDATE OPERATORS
+  {
+    $rename:{
+      myAttr:'my_data'
+    }
+  }
+)
+db.zips.updateMany(
+  {city:"CLEVELAND"},
+  //UPDATE OPERATORS
+  {
+    /**
+     * Provide the field name to exclude.
+     * To exclude multiple fields, pass the field names in an array.
+     */
+    $unset: {
+      my_data: ""
+    }
+  }
+)
+
