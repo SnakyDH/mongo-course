@@ -1,0 +1,40 @@
+use('platzi-store')
+//data set
+db.inventory.drop()
+
+db.inventory.insertMany([
+  { _id: 1, item: { name: "ab", code: "123", description : "Single line description."    }, qty: 15, tags: ["A", "B", "C"] },
+  { _id: 2, item: { name: "cd", code: "123", description : "First line\nSecond line"     }, qty: 20, tags: ["B"] },
+  { _id: 3, item: { name: "ij", code: "456", description : "Many spaces before     line" }, qty: 25, tags: ["A", "B"] },
+  { _id: 4, item: { name: "xy", code: "456", description : "Multiple\nline description"  }, qty: 30, tags: ["B", "A"] },
+  { _id: 5, item: { name: "mn", code: "000" }, qty: 20, tags: [["A", "B"], "C"] },
+])
+
+db.inventory.find()
+
+//querys
+// equal $eq
+db.inventory.find({qty:20})
+db.inventory.find({ qty: { $eq: 20 } })
+//query in sub documents or arrays
+db.inventory.find({"item.code":"123"})
+db.inventory.find({"item.code":"123"})
+
+// no equal $ne
+db.inventory.find({"item.code":{$ne:"123"}})
+// $gt (>) $gte (>=)
+db.inventory.find({qty:{$gt:20}})
+db.inventory.find({qty:{$gte:20}})
+// $lt (<) $lte (<=)
+db.inventory.find({qty:{$lt:20}})
+db.inventory.find({qty:{$lte:20}})
+// and conditional
+db.inventory.find({qty:{$gt:20,$lt:30}})
+// regex $regex
+db.inventory.find({"item.description":{$regex:/line/}})
+db.inventory.find({"item.description":{$regex:/LINE$/i}})
+db.inventory.find({"item.description":{$regex:/^Many/i}})
+// Multi line
+db.inventory.find({"item.description":{$regex:/^s/im}})
+// Look
+db.inventory.find({},{_id:false, item:true, qty:true})

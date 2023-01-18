@@ -1,0 +1,47 @@
+/* use('sample_training')
+
+// AND - implicit
+db.inspections.find({
+  sector: "Tax Preparers - 891",
+  result: "Unable to Locate"
+}).count()
+// $AND - explicit
+// $AND = [{condition},{condition},{condition}]
+db.inspections.find({
+  $and: [
+    {sector: "Tax Preparers - 891"},
+    {result: "Unable to Locate"}
+  ],
+})
+// $OR
+db.inspections.find({
+  $or:[
+    {sector: "Tax Preparers - 891"},
+    {result: "Unable to Locate"}
+  ],
+}).count()
+// $NOR
+db.inspections.find({
+  $nor:[
+    {sector: "Tax Preparers - 891"},
+    {result: "Unable to Locate"}
+  ],
+}).count()
+// $not
+db.inspections.find({
+  result:{ $not:{$regex:/Unable to Locate/}}
+})
+ */
+
+use('sample_training')
+
+db.routes.find({
+    $or:[
+    {src_airport:"BOG"},
+    {src_airport:"BOG"}
+  ]},{
+  airline:true,
+  src_airport:true,
+  dst_airport:true,
+  stops:true
+  })

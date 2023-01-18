@@ -1,0 +1,8 @@
+use('sample_training')
+
+db.companies.find({
+  "relationships.0.person.first_name": "Mark"
+},{
+  name: true,
+  relationships: true
+})
