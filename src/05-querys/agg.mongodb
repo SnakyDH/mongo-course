@@ -1,0 +1,33 @@
+use('sample_airbnb')
+db.listingsAndReviews.find({
+  amenities:"Wifi"
+},{
+  price:true,
+  amenities:true
+})
+// Aggregation Framework
+db.listingsAndReviews.aggregate([
+  {/**
+   * query: The query in MongoQueryLanguage.
+   */
+  $match: {
+    amenities: "Wifi"
+  }},
+  { /**
+   * specifications: The fields to
+   *   include or exclude.
+   */
+  $project: {
+    price: true, address: true
+  }},
+  {/**
+   * _id: The id of the group.
+   * fieldN: The first field name.
+   */
+  $group: {
+    _id: "$address.country",
+    count: {
+      $sum: 1
+    }
+  }}
+])
